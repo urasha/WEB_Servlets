@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -9,7 +11,7 @@
     <style>
         @font-face {
             font-family: "Handjet";
-            src: url("../fonts/Handjet-VariableFont_ELGR,ELSH,wght.ttf") format("truetype");
+            src: url("fonts/Handjet-VariableFont_ELGR,ELSH,wght.ttf") format("truetype");
         }
 
         * {
