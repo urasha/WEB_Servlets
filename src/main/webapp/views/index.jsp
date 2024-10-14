@@ -83,7 +83,7 @@
             grid-column-start: 1;
             grid-column-end: 2;
             grid-row-start: 2;
-            grid-row-end: 4;
+            grid-row-end: 3;
         }
 
         #r-selection {
