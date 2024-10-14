@@ -3,6 +3,7 @@
 <%@ page import="models.Point" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.Locale" %>
 
 <html>
 <head>
@@ -60,9 +61,9 @@
                         for (Point point : points) {
                 %>
                     <tr>
-                        <td><%= point.getX() %></td>
-                        <td><%= point.getY() %></td>
-                        <td><%= point.getR() %></td>
+                        <td><%= String.format(Locale.US, "%.2f", point.getX()) %></td>
+                        <td><%= String.format(Locale.US, "%.2f", point.getY()) %></td>
+                        <td><%= String.format(Locale.US, "%.2f", point.getR()) %></td>
                         <td><%= point.isHit() ? "Да" : "Нет" %></td>
                     </tr>
                 <%

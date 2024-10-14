@@ -37,9 +37,9 @@ function sendRequestAndHandleResponse(x, y, r, pointData = null) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            x: x,
-            y: y,
-            r: r
+            x: parseFloat(x.toFixed(2)),
+            y: parseFloat(y.toFixed(2)),
+            r: parseFloat(r.toFixed(2))
         })
     };
 
@@ -85,8 +85,8 @@ function handleImageClicking(event) {
     const x = event.clientX - rect.left - svgWidth / 2;
     const y = svgHeight / 2 - (event.clientY - rect.top);
 
-    const scaledX = ((x / (svgWidth / 2)) * r * 1.5).toFixed(3);
-    const scaledY = ((y / (svgHeight / 2)) * r * 1.5).toFixed(3);
+    const scaledX = ((x / (svgWidth / 2)) * r * 1.5);
+    const scaledY = ((y / (svgHeight / 2)) * r * 1.5);
 
     console.log(`Clicked coordinates: x = ${scaledX}, y = ${scaledY}`);
 
@@ -110,9 +110,9 @@ function addDataRow(x, y, r, hit) {
     let newRow = document.createElement("tr");
 
     newRow.innerHTML = `
-        <td>${x.toFixed(1)}</td>
-        <td>${y.toFixed(1)}</td>
-        <td>${r.toFixed(1)}</td>
+        <td>${x.toFixed(2)}</td>
+        <td>${y.toFixed(2)}</td>
+        <td>${r.toFixed(2)}</td>
         <td>${MESSAGES.HIT_RESULT[hit]}</td>
     `;
 
