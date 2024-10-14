@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Point;
+import utils.PointHitChecker;
 
 @WebServlet("/areaCheck")
 public class AreaCheckServlet extends HttpServlet {
@@ -22,10 +23,11 @@ public class AreaCheckServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(AreaCheckServlet.class.getName());
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         Point point = parseRequest(request);
+        point.setHit(PointHitChecker.checkHit(point));
 
         logger.info(point.toString());
 
@@ -40,7 +42,9 @@ public class AreaCheckServlet extends HttpServlet {
 
         context.setAttribute("allPoints", points);
 
-        request.getRequestDispatcher("views/result.jsp").forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new Gson().toJson(point));
     }
 
     private Point parseRequest(HttpServletRequest request) throws IOException {

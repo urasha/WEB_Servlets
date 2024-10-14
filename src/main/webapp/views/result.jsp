@@ -1,20 +1,76 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Point" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+
 <html>
 <head>
     <title>Результаты проверки</title>
+    <style>
+        #result-wrapper {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 5;
+            margin-top: 3%;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 12px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        th {
+            background-color: #eae6e6;
+        }
+    </style>
 </head>
 <body>
-    <h1>Результат проверки</h1>
-    <table border="1">
-        <tr>
-            <th>X</th>
-            <th>Y</th>
-            <th>Радиус</th>
-            <th>Попадание</th>
-        </tr>
-        <tr>
-        </tr>
-    </table>
-    <a href="controller">Вернуться к форме</a>
+    <div id="result-wrapper">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Попала ли точка</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    List<Point> points = (List<Point>) request.getServletContext().getAttribute("allPoints");
+                    if (points == null || points.isEmpty()) {
+                %>
+                    <tr id="no-data">
+                        <td colspan="6">Нет данных</td>
+                    </tr>
+                <%
+                    } else {
+                        for (Point point : points) {
+                %>
+                    <tr>
+                        <td><%= point.getX() %></td>
+                        <td><%= point.getY() %></td>
+                        <td><%= point.getR() %></td>
+                        <td><%= point.isHit() ? "Да" : "Нет" %></td>
+                    </tr>
+                <%
+                        }
+                    }
+                %>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

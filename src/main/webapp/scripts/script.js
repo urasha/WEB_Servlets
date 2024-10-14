@@ -2,7 +2,10 @@ const MESSAGES = {
     X_ERROR: "Выберите только один X!",
     Y_ERROR: "Введите Y в заданных пределах [-5; 5]",
     R_ERROR: "Выберите из предложенных R!",
-
+    HIT_RESULT: {
+        true: "Да",
+        false: "Нет"
+    },
     API_URL: "/web2/controller"
 };
 
@@ -32,8 +35,40 @@ function sendCoordinates(x, y, r) {
     };
 
     fetch(MESSAGES.API_URL, request)
-        .then(response => console.log(response))
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.error('Send error: ', response.statusText);
+            }
+        })
+        .then(data => {
+            console.log(data);
+            if (data) {
+                addDataRow(data["x"], data["y"], data["r"], data["isHit"]);
+            }
+        })
         .catch(error => console.error("Fetch error: ", error));
+}
+
+function addDataRow(x, y, r, hit, time) {
+    let tableBody = document.querySelector("#data-table tbody");
+    let noDataRow = document.getElementById("no-data");
+
+    if (noDataRow) {
+        noDataRow.remove();
+    }
+
+    let newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td>${x.toFixed(1)}</td>
+        <td>${y.toFixed(1)}</td>
+        <td>${r.toFixed(1)}</td>
+        <td>${MESSAGES.HIT_RESULT[hit]}</td>
+    `;
+
+    tableBody.appendChild(newRow);
 }
 
 function getValidatedX() {
@@ -64,7 +99,7 @@ function getValidatedR() {
     const possibleRValues = [1, 1.5, 2, 2.5, 3];
 
     const rInput = document.querySelector('#r-selection');
-    let r = parseInt(rInput.value);
+    let r = parseFloat(rInput.value);
 
     let validationResult = !isNaN(r) && possibleRValues.includes(r);
     document.querySelector("#r-error").textContent = validationResult ? "" : MESSAGES.R_ERROR;
@@ -72,19 +107,24 @@ function getValidatedR() {
     return validationResult ? r : null;
 }
 
+// transform svg coordinates to normal and send request with them
 function handleImageClicking(event) {
     const svg = event.currentTarget;
     const rect = svg.getBoundingClientRect();
     const svgWidth = rect.width;
     const svgHeight = rect.height;
 
-    const r = parseFloat(document.getElementById("r-selection").value);
+    const r = getValidatedR();
+
+    if (r == null) {
+        return;
+    }
 
     const x = event.clientX - rect.left - svgWidth / 2;
     const y = svgHeight / 2 - (event.clientY - rect.top);
 
-    const scaledX = ((x / (svgWidth / 2)) * r * 1.5).toFixed(2);
-    const scaledY = ((y / (svgHeight / 2)) * r * 1.5).toFixed(2);
+    const scaledX = ((x / (svgWidth / 2)) * r * 1.5).toFixed(3);
+    const scaledY = ((y / (svgHeight / 2)) * r * 1.5).toFixed(3);
 
     console.log(`Clicked coordinates: x = ${scaledX}, y = ${scaledY}`);
 

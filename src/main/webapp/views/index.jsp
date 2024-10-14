@@ -127,44 +127,9 @@
             background-color: rgba(241, 177, 186, 0.89);
         }
 
-        #result-wrapper {
-            grid-column-start: 1;
-            grid-column-end: 3;
-            grid-row-start: 5;
-            margin-top: 3%;
-        }
-
         .axis {
             stroke-width: 2px;
             stroke: black;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 12px;
-        }
-
-        td {
-            text-align: center;
-        }
-
-        th {
-            background-color: #eae6e6;
-        }
-
-        .hit-true {
-            color: green;
-        }
-
-        .hit-false {
-            color: red;
         }
 
         @media (max-width: 768px) {
@@ -226,8 +191,8 @@
         <div id="graph">
             <svg width="300" height="300" onclick="handleImageClicking(event)">
                 <rect x="50" y="50" width="100" height="100" fill="rgba(39, 147, 236, 0.85)" />
-                <path d="M50,150 A 100 100, 270, 0, 0, 150 250 V150 H200" fill="rgba(39, 147, 236, 0.85)" />
-                <polygon points="150,200 150,150 200,150" fill="rgba(39, 147, 236, 0.85)" />
+                <path d="M150,50 A 100 100, 270, 0, 1, 250 150 V150 H150" fill="rgba(39, 147, 236, 0.85)" />
+                <polygon points="150,200 150,150 250,150" fill="rgba(39, 147, 236, 0.85)" />
 
                 <line class="axis" x1="150" x2="155" y1="0" y2="10" />
                 <line class="axis" x1="150" x2="145" y1="0" y2="10" />
@@ -260,7 +225,7 @@
             </svg>
         </div>
 
-        <div id="result-wrapper">
+        <%-- <div id="result-wrapper">
             <table id="data-table">
                 <thead>
                     <tr>
@@ -279,7 +244,8 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> --%>
+        <jsp:include page="result.jsp" />
     </div>
 </body>
 
