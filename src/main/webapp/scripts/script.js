@@ -37,9 +37,9 @@ function sendRequestAndHandleResponse(x, y, r, pointData = null) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            x: parseFloat(x.toFixed(2)),
-            y: parseFloat(y.toFixed(2)),
-            r: parseFloat(r.toFixed(2))
+            x: x,
+            y: y,
+            r: r
         })
     };
 
