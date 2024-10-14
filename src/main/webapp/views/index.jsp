@@ -189,7 +189,7 @@
         </button>
 
         <div id="graph">
-            <svg width="300" height="300" onclick="handleImageClicking(event)">
+            <svg width="300" height="300">
                 <rect x="50" y="50" width="100" height="100" fill="rgba(39, 147, 236, 0.85)" />
                 <path d="M150,50 A 100 100, 270, 0, 1, 250 150 V150 H150" fill="rgba(39, 147, 236, 0.85)" />
                 <polygon points="150,200 150,150 250,150" fill="rgba(39, 147, 236, 0.85)" />

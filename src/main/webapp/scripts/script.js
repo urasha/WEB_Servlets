@@ -18,10 +18,10 @@ function validateInput() {
         return;
     }
 
-    sendCoordinates(xResult, yResult, rResult);
+    sendRequestAndHandleResponse(xResult, yResult, rResult);
 }
 
-function sendCoordinates(x, y, r) {
+function sendRequestAndHandleResponse(x, y, r, pointData = null) {
     const request = {
         method: "POST",
         headers: {
@@ -43,15 +43,19 @@ function sendCoordinates(x, y, r) {
             }
         })
         .then(data => {
-            console.log(data);
             if (data) {
+                console.log(data);
                 addDataRow(data["x"], data["y"], data["r"], data["isHit"]);
+                
+                if (pointData) {
+                    drawPointOnSvg(pointData.svg, pointData.x, pointData.y);
+                }
             }
         })
         .catch(error => console.error("Fetch error: ", error));
 }
 
-function addDataRow(x, y, r, hit, time) {
+function addDataRow(x, y, r, hit) {
     let tableBody = document.querySelector("#data-table tbody");
     let noDataRow = document.getElementById("no-data");
 
@@ -128,8 +132,28 @@ function handleImageClicking(event) {
 
     console.log(`Clicked coordinates: x = ${scaledX}, y = ${scaledY}`);
 
-    sendCoordinates(scaledX, scaledY, r);
+    const pointData = {
+        svg: svg,
+        x: x,
+        y: y,
+    };
+
+    sendRequestAndHandleResponse(scaledX, scaledY, r, pointData);
 }
 
-const submitButton = document.querySelector("#submit-button");
-submitButton.addEventListener("click", (event) => validateInput(event));
+function drawPointOnSvg(svg, x, y) {
+    const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+    point.setAttribute("cx", svg.getBoundingClientRect().width / 2 + x);
+    point.setAttribute("cy", svg.getBoundingClientRect().height / 2 - y);
+    point.setAttribute("r", 3);
+    point.setAttribute("fill", "red");
+
+    svg.appendChild(point);
+}
+
+document.querySelector("#submit-button")
+    .addEventListener("click", (event) => validateInput(event));
+
+document.querySelector("svg")
+    .addEventListener("click", (event) => handleImageClicking(event));
