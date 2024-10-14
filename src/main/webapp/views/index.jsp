@@ -59,9 +59,8 @@
         .x-input {
             grid-column-start: 1;
             grid-column-end: 2;
-            grid-row-start: 2;
-            grid-row-end: 4;
-            align-content: center;
+            grid-row-start: 3;
+            grid-row-end: 3;
         }
 
         #x-error {
@@ -73,8 +72,7 @@
             grid-column-start: 2;
             grid-column-end: 3;
             grid-row-start: 2;
-            grid-row-end: 3;
-            align-content: center;
+            grid-row-end: 4;
         }
 
         #y-error {
@@ -82,11 +80,10 @@
         }
 
         .r-input {
-            grid-column-start: 2;
-            grid-column-end: 3;
-            grid-row-start: 3;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
             grid-row-end: 4;
-            align-content: center;
         }
 
         #r-selection {
@@ -106,7 +103,7 @@
             grid-column-end: 4;
             grid-row-start: 2;
             grid-row-end: 5;
-            align-content: end;
+            align-content: center;
             text-align: center;
         }
 
@@ -148,24 +145,26 @@
 
         <div class="x-input">
             <fieldset>
-                <legend class="highlighted">Выберите X:</legend>
-                <input type="checkbox" value="-4" name="x-value" onclick="getValidatedX()"> -4 <br>
-                <input type="checkbox" value="-3" name="x-value" onclick="getValidatedX()"> -3 <br>
-                <input type="checkbox" value="-2" name="x-value" onclick="getValidatedX()"> -2 <br>
-                <input type="checkbox" value="-1" name="x-value" onclick="getValidatedX()"> -1 <br>
-                <input type="checkbox" value="0" name="x-value" onclick="getValidatedX()"> 0 <br>
-                <input type="checkbox" value="1" name="x-value" onclick="getValidatedX()"> 1 <br>
-                <input type="checkbox" value="2" name="x-value" onclick="getValidatedX()"> 2 <br>
-                <input type="checkbox" value="3" name="x-value" onclick="getValidatedX()"> 3 <br>
-                <input type="checkbox" value="4" name="x-value" onclick="getValidatedX()"> 4 <br>
+                <legend class="highlighted">Введите X:</legend>
+                <input type="text" placeholder="[-5; 5]" id="x-value" name="x-value">
+
                 <span id="x-error" class="error"></span>
             </fieldset>
         </div>
 
         <div class="y-input">
             <fieldset>
-                <legend class="highlighted">Введите Y:</legend>
-                <input type="text" placeholder="[-5; 5]" id="y-value" name="y-value">
+                <legend class="highlighted">Выберите Y:</legend>
+                <input type="radio" value="-2" name="y-value"> -2 <br>
+                <input type="radio" value="-1.5" name="y-value"> -1.5 <br>
+                <input type="radio" value="-1" name="y-value"> -1 <br>
+                <input type="radio" value="-0.5" name="y-value"> -0.5 <br>
+                <input type="radio" value="0" name="y-value"> 0 <br>
+                <input type="radio" value="0.5" name="y-value"> 0.5 <br>
+                <input type="radio" value="1" name="y-value"> 1 <br>
+                <input type="radio" value="1.5" name="y-value"> 1.5 <br>
+                <input type="radio" value="2" name="y-value"> 2 <br>
+
                 <span id="y-error" class="error"></span>
             </fieldset>
         </div>
@@ -173,13 +172,12 @@
         <div class="r-input">
             <fieldset>
                 <legend class="highlighted">Выберите R:</legend>
-                <select id="r-selection" name="r-value">
-                    <option value="1">1</option>
-                    <option value="1.5">1.5</option>
-                    <option value="2">2</option>
-                    <option value="2.5">2.5</option>
-                    <option value="3">3</option>
-                </select>
+                <input type="radio" value="1" name="r-value"> 1 <br>
+                <input type="radio" value="2" name="r-value"> 2 <br>
+                <input type="radio" value="3" name="r-value"> 3 <br>
+                <input type="radio" value="4" name="r-value"> 4 <br>
+                <input type="radio" value="5" name="r-value"> 5 <br>
+
                 <span id="r-error" class="error"></span>
             </fieldset>
         </div>
@@ -190,9 +188,9 @@
 
         <div id="graph">
             <svg width="300" height="300">
-                <rect x="50" y="50" width="100" height="100" fill="rgba(39, 147, 236, 0.85)" />
-                <path d="M150,50 A 100 100, 270, 0, 1, 250 150 V150 H150" fill="rgba(39, 147, 236, 0.85)" />
-                <polygon points="150,200 150,150 250,150" fill="rgba(39, 147, 236, 0.85)" />
+                <rect x="50" y="50" width="100" height="100" fill="rgba(39, 147, 236, 0.8)" />
+                <path d="M150,50 A 100 100, 270, 0, 1, 250 150 V150 H150" fill="rgba(39, 147, 236, 0.8)" />
+                <polygon points="150,200 150,150 250,150" fill="rgba(39, 147, 236, 0.8)"" />
 
                 <line class="axis" x1="150" x2="155" y1="0" y2="10" />
                 <line class="axis" x1="150" x2="145" y1="0" y2="10" />
@@ -225,26 +223,6 @@
             </svg>
         </div>
 
-        <%-- <div id="result-wrapper">
-            <table id="data-table">
-                <thead>
-                    <tr>
-                        <th>X</th>
-                        <th>Y</th>
-                        <th>R</th>
-                        <th>Текущее время</th>
-                        <th>Время выполнения скрипта</th>
-                        <th>Попала ли точка</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr id="no-data">
-                        <td colspan="6">Нет данных</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> --%>
         <jsp:include page="result.jsp" />
     </div>
 </body>

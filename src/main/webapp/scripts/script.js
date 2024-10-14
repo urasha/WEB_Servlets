@@ -1,6 +1,6 @@
 const MESSAGES = {
-    X_ERROR: "Выберите только один X!",
-    Y_ERROR: "Введите Y в заданных пределах [-5; 5]",
+    X_ERROR: "Введите X в заданных пределах [-5; 5]",
+    Y_ERROR: "Выберите из предложенных Y!",
     R_ERROR: "Выберите из предложенных R!",
     HIT_RESULT: {
         true: "Да",
@@ -21,6 +21,15 @@ function validateInput() {
     sendRequestAndHandleResponse(xResult, yResult, rResult);
 }
 
+/**
+ *  Send request to server to check point's hit and handle response:
+ *  
+ *  1) Send POST request with the coordinates and radius.
+ *  2) Handle the response:
+ *     a) If the response is OK, add the data to the table.
+ *     b) If there is an error, log it in the console.
+ *     c) (Optional) If a pointData object is passed, draw the point on the SVG.
+ */
 function sendRequestAndHandleResponse(x, y, r, pointData = null) {
     const request = {
         method: "POST",
@@ -46,7 +55,7 @@ function sendRequestAndHandleResponse(x, y, r, pointData = null) {
             if (data) {
                 console.log(data);
                 addDataRow(data["x"], data["y"], data["r"], data["isHit"]);
-                
+
                 if (pointData) {
                     drawPointOnSvg(pointData.svg, pointData.x, pointData.y);
                 }
@@ -55,63 +64,12 @@ function sendRequestAndHandleResponse(x, y, r, pointData = null) {
         .catch(error => console.error("Fetch error: ", error));
 }
 
-function addDataRow(x, y, r, hit) {
-    let tableBody = document.querySelector("#data-table tbody");
-    let noDataRow = document.getElementById("no-data");
-
-    if (noDataRow) {
-        noDataRow.remove();
-    }
-
-    let newRow = document.createElement("tr");
-
-    newRow.innerHTML = `
-        <td>${x.toFixed(1)}</td>
-        <td>${y.toFixed(1)}</td>
-        <td>${r.toFixed(1)}</td>
-        <td>${MESSAGES.HIT_RESULT[hit]}</td>
-    `;
-
-    tableBody.appendChild(newRow);
-}
-
-function getValidatedX() {
-    const possibleXValues = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
-
-    const xInput = document.querySelectorAll('input[name="x-value"]:checked');
-    let x = (xInput == null || xInput.length !== 1)
-        ? NaN
-        : parseInt(xInput[0].value);
-
-    let validationResult = !isNaN(x) && possibleXValues.includes(x);
-    document.querySelector("#x-error").textContent = validationResult ? "" : MESSAGES.X_ERROR;
-
-    return validationResult ? x : null;
-}
-
-function getValidatedY() {
-    const yInput = document.querySelector('#y-value');
-    let y = parseFloat(yInput.value);
-
-    let validationResult = !isNaN(y) && y <= 5 && y >= -5;
-    document.querySelector("#y-error").textContent = validationResult ? "" : MESSAGES.Y_ERROR;
-
-    return validationResult ? y : null;
-}
-
-function getValidatedR() {
-    const possibleRValues = [1, 1.5, 2, 2.5, 3];
-
-    const rInput = document.querySelector('#r-selection');
-    let r = parseFloat(rInput.value);
-
-    let validationResult = !isNaN(r) && possibleRValues.includes(r);
-    document.querySelector("#r-error").textContent = validationResult ? "" : MESSAGES.R_ERROR;
-
-    return validationResult ? r : null;
-}
-
-// transform svg coordinates to normal and send request with them
+/**
+ *  Handle SVG clicking
+ * 
+ *  1) Transform window coordinates to graph type
+ *  2) Send POST request with them and handle it
+ */
 function handleImageClicking(event) {
     const svg = event.currentTarget;
     const rect = svg.getBoundingClientRect();
@@ -139,6 +97,64 @@ function handleImageClicking(event) {
     };
 
     sendRequestAndHandleResponse(scaledX, scaledY, r, pointData);
+}
+
+function addDataRow(x, y, r, hit) {
+    let tableBody = document.querySelector("#data-table tbody");
+    let noDataRow = document.getElementById("no-data");
+
+    if (noDataRow) {
+        noDataRow.remove();
+    }
+
+    let newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td>${x.toFixed(1)}</td>
+        <td>${y.toFixed(1)}</td>
+        <td>${r.toFixed(1)}</td>
+        <td>${MESSAGES.HIT_RESULT[hit]}</td>
+    `;
+
+    tableBody.appendChild(newRow);
+}
+
+function getValidatedX() {
+    const xInput = document.querySelector('#x-value');
+    let x = parseFloat(xInput.value);
+
+    let validationResult = !isNaN(x) && x <= 5 && x >= -5;
+    document.querySelector("#x-error").textContent = validationResult ? "" : MESSAGES.X_ERROR;
+
+    return validationResult ? x : null;
+}
+
+function getValidatedY() {
+    const possibleValues = [-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2];
+
+    const yInput = document.querySelector('input[name="y-value"]:checked');
+    let y = (yInput == null)
+        ? NaN
+        : parseInt(yInput.value);
+
+    let validationResult = !isNaN(y) && possibleValues.includes(y);
+    document.querySelector("#y-error").textContent = validationResult ? "" : MESSAGES.Y_ERROR;
+
+    return validationResult ? y : null;
+}
+
+function getValidatedR() {
+    const possibleValues = [1, 2, 3, 4, 5];
+
+    const rInput = document.querySelector('input[name="r-value"]:checked');
+    let r = (rInput == null)
+        ? NaN
+        : parseInt(rInput.value);
+
+    let validationResult = !isNaN(r) && possibleValues.includes(r);
+    document.querySelector("#r-error").textContent = validationResult ? "" : MESSAGES.R_ERROR;
+
+    return validationResult ? r : null;
 }
 
 function drawPointOnSvg(svg, x, y) {
