@@ -13,10 +13,6 @@
             <th>Попадание</th>
         </tr>
         <tr>
-            <td>${param.x}</td>
-            <td>${param.y}</td>
-            <td>${param.radius}</td>
-            <td>${sessionScope.points.get(sessionScope.points.size() - 1).hit ? "Да" : "Нет"}</td>
         </tr>
     </table>
     <a href="controller">Вернуться к форме</a>

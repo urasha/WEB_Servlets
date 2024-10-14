@@ -1,42 +1,62 @@
 package controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import models.Point;
 
 @WebServlet("/areaCheck")
 public class AreaCheckServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        double x = Double.parseDouble(request.getParameter("x"));
-        double y = Double.parseDouble(request.getParameter("y"));
-        double radius = Double.parseDouble(request.getParameter("r"));
 
-        boolean isHit = checkPoint(x, y, radius);
+    private static final Logger logger = Logger.getLogger(AreaCheckServlet.class.getName());
 
-        Point point = new Point(x, y, radius, isHit);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        List<Point> points = (List<Point>) session.getAttribute("points");
+        Point point = parseRequest(request);
+
+        logger.info(point.toString());
+
+        ServletContext context = getServletContext();
+        List<Point> points = (List<Point>) context.getAttribute("allPoints");
+
         if (points == null) {
             points = new ArrayList<>();
         }
-        points.add(point);
-        session.setAttribute("points", points);
 
-        request.getRequestDispatcher("/result.jsp").forward(request, response);
+        points.add(point);
+
+        context.setAttribute("allPoints", points);
+
+        request.getRequestDispatcher("views/result.jsp").forward(request, response);
     }
 
-    private boolean checkPoint(double x, double y, double radius) {
-        // Пример логики проверки попадания в область
-        return (x >= 0 && y >= 0 && x * x + y * y <= radius * radius);
+    private Point parseRequest(HttpServletRequest request) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+
+        try (BufferedReader reader = request.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        }
+
+        String jsonBody = stringBuilder.toString();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(jsonBody, Point.class);
     }
 }
-

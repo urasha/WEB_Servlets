@@ -224,7 +224,7 @@
         </button>
 
         <div id="graph">
-            <svg width="300" height="300">
+            <svg width="300" height="300" onclick="handleImageClicking(event)">
                 <rect x="50" y="50" width="100" height="100" fill="rgba(39, 147, 236, 0.85)" />
                 <path d="M50,150 A 100 100, 270, 0, 0, 150 250 V150 H200" fill="rgba(39, 147, 236, 0.85)" />
                 <polygon points="150,200 150,150 200,150" fill="rgba(39, 147, 236, 0.85)" />
@@ -283,6 +283,6 @@
     </div>
 </body>
 
-<script src="../scripts/validation.js"></script>
+<script src="scripts/script.js"></script>
 
 </html>
