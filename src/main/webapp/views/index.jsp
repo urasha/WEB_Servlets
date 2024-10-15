@@ -155,15 +155,15 @@
         <div class="y-input">
             <fieldset>
                 <legend class="highlighted">Выберите Y:</legend>
-                <input type="radio" value="-2" name="y-value"> -2 <br>
-                <input type="radio" value="-1.5" name="y-value"> -1.5 <br>
-                <input type="radio" value="-1" name="y-value"> -1 <br>
-                <input type="radio" value="-0.5" name="y-value"> -0.5 <br>
-                <input type="radio" value="0" name="y-value"> 0 <br>
-                <input type="radio" value="0.5" name="y-value"> 0.5 <br>
-                <input type="radio" value="1" name="y-value"> 1 <br>
-                <input type="radio" value="1.5" name="y-value"> 1.5 <br>
-                <input type="radio" value="2" name="y-value"> 2 <br>
+                <input type="radio" value="-2" name="y-value" onclick="getValidatedY()"> -2 <br>
+                <input type="radio" value="-1.5" name="y-value" onclick="getValidatedY()"> -1.5 <br>
+                <input type="radio" value="-1" name="y-value" onclick="getValidatedY()"> -1 <br>
+                <input type="radio" value="-0.5" name="y-value" onclick="getValidatedY()"> -0.5 <br>
+                <input type="radio" value="0" name="y-value" onclick="getValidatedY()"> 0 <br>
+                <input type="radio" value="0.5" name="y-value" onclick="getValidatedY()"> 0.5 <br>
+                <input type="radio" value="1" name="y-value" onclick="getValidatedY()"> 1 <br>
+                <input type="radio" value="1.5" name="y-value" onclick="getValidatedY()"> 1.5 <br>
+                <input type="radio" value="2" name="y-value" onclick="getValidatedY()"> 2 <br>
 
                 <span id="y-error" class="error"></span>
             </fieldset>
@@ -172,11 +172,11 @@
         <div class="r-input">
             <fieldset>
                 <legend class="highlighted">Выберите R:</legend>
-                <input type="radio" value="1" name="r-value"> 1 <br>
-                <input type="radio" value="2" name="r-value"> 2 <br>
-                <input type="radio" value="3" name="r-value"> 3 <br>
-                <input type="radio" value="4" name="r-value"> 4 <br>
-                <input type="radio" value="5" name="r-value"> 5 <br>
+                <input type="radio" value="1" name="r-value" onclick="getValidatedR()"> 1 <br>
+                <input type="radio" value="2" name="r-value" onclick="getValidatedR()"> 2 <br>
+                <input type="radio" value="3" name="r-value" onclick="getValidatedR()"> 3 <br>
+                <input type="radio" value="4" name="r-value" onclick="getValidatedR()"> 4 <br>
+                <input type="radio" value="5" name="r-value" onclick="getValidatedR()"> 5 <br>
 
                 <span id="r-error" class="error"></span>
             </fieldset>
