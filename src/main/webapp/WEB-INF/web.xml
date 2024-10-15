@@ -4,16 +4,6 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 
-    <servlet>
-        <servlet-name>ControllerServlet</servlet-name>
-        <servlet-class>controllers.ControllerServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/controller</url-pattern>
-    </servlet-mapping>
-
     <welcome-file-list>
         <welcome-file>views/index.jsp</welcome-file>
     </welcome-file-list>

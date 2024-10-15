@@ -33,7 +33,7 @@ public class AreaCheckServlet extends HttpServlet {
         try {
             point = parseRequest(request);
 
-            if(!validatePointValues(point)) {
+            if (point == null || !validatePointValues(point)) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
