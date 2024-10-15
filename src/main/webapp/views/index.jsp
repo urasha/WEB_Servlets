@@ -222,9 +222,9 @@
                 <text x="157" y="205">-R/2</text>
             </svg>
         </div>
-
-        <jsp:include page="result.jsp" />
     </div>
+
+    <jsp:include page="result.jsp" />
 </body>
 
 <script src="scripts/script.js"></script>

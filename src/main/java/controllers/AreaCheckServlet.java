@@ -85,8 +85,6 @@ public class AreaCheckServlet extends HttpServlet {
             return false;
         }
 
-        double k = point.getR() == 1 ? 0.5 : point.getR() * 1.5;
-
         if (point.getX() < -5 || point.getX() > 5) {
             return false;
         }
@@ -94,8 +92,6 @@ public class AreaCheckServlet extends HttpServlet {
         if (point.getY() < -2 || point.getY() > 2) {
             return false;
         }
-
-        
 
         return true;
     }

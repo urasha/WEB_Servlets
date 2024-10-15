@@ -10,10 +10,8 @@
     <title>Результаты проверки</title>
     <style>
         #result-wrapper {
-            grid-column-start: 1;
-            grid-column-end: 3;
-            grid-row-start: 5;
-            margin-top: 3%;
+            margin-top: 50px;
+            width: 35%;
         }
 
         table {
