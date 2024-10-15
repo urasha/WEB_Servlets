@@ -28,12 +28,6 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String referer = request.getHeader("Referer");
-        if (referer == null || !referer.startsWith("localhost:8080")) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
-
         Point point = null;
 
         try {
