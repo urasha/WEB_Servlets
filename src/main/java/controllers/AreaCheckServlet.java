@@ -80,19 +80,22 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean validatePointValues(Point point) {
-        if (point.getX() < -5 || point.getX() > 5) {
-            return false;
-        }
-
-        double[] validYValues = {-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2};
-        if (Arrays.stream(validYValues).noneMatch(v -> v == point.getY())) {
-            return false;
-        }
-
         int[] validRValues = {1, 2, 3, 4, 5};
         if (Arrays.stream(validRValues).noneMatch(v -> v == point.getR())) {
             return false;
         }
+
+        double k = point.getR() == 1 ? 0.5 : point.getR() * 1.5;
+
+        if (point.getX() < -5 || point.getX() > 5) {
+            return false;
+        }
+
+        if (point.getY() < -2 || point.getY() > 2) {
+            return false;
+        }
+
+        
 
         return true;
     }

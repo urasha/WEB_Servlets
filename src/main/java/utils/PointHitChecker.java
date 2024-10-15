@@ -1,8 +1,12 @@
 package utils;
 
+import java.util.logging.Logger;
+
 import models.Point;
 
 public class PointHitChecker {
+
+    private static final Logger logger = Logger.getLogger(PointHitChecker.class.getName());
 
     public static boolean checkHit(Point point) {
         double x = point.getX();
@@ -25,13 +29,14 @@ public class PointHitChecker {
     }
 
     private static boolean checkTriangle(double r, double x, double y) {
-        if (!(x >= 0 && x <= r) || !(y <= 0 && y >= (-r / 2))) {
-            return false;
-        }
+        boolean withinXBounds = (0 <= x) && (x <= r); 
+        boolean withinYBounds = (y >= -r / 2) && (y <= 0); 
+        boolean aboveHypotenuse = (y >= 0.5 * x - r / 2); 
 
-        double xLength = r - x;
-        double tan = y / xLength;
+        logger.info(String.valueOf(withinXBounds));
+        logger.info(String.valueOf(withinYBounds));
+        logger.info(String.valueOf(aboveHypotenuse));
 
-        return tan <= 1;
+        return withinXBounds && withinYBounds && aboveHypotenuse;
     }
 }

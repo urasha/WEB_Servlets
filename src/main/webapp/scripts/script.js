@@ -135,7 +135,7 @@ function getValidatedY() {
     const yInput = document.querySelector('input[name="y-value"]:checked');
     let y = (yInput == null)
         ? NaN
-        : parseInt(yInput.value);
+        : parseFloat(yInput.value);
 
     let validationResult = !isNaN(y) && possibleValues.includes(y);
     document.querySelector("#y-error").textContent = validationResult ? "" : MESSAGES.Y_ERROR;
@@ -149,7 +149,7 @@ function getValidatedR() {
     const rInput = document.querySelector('input[name="r-value"]:checked');
     let r = (rInput == null)
         ? NaN
-        : parseInt(rInput.value);
+        : parseFloat(rInput.value);
 
     let validationResult = !isNaN(r) && possibleValues.includes(r);
     document.querySelector("#r-error").textContent = validationResult ? "" : MESSAGES.R_ERROR;
