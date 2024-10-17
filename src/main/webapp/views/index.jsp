@@ -155,9 +155,8 @@
         .notification {
             position: fixed;
             top: 20px; 
-            left: 15%;
-            transform: translateX(-50%);
-            background-color: #f44336; 
+            right: 20px; 
+            background-color: #f44336;
             color: white;
             padding: 15px;
             border-radius: 5px;
@@ -165,17 +164,18 @@
             opacity: 0;
             transition: opacity 0.5s ease; 
             z-index: 1000;
+            max-width: 90%; 
+            word-wrap: break-word;
         }
 
         .notification.visible {
-            opacity: 1;
-            visibility: visible;
+            opacity: 1; 
         }
 
         .notification.hidden {
-            opacity: 0;
-            visibility: hidden;
+            opacity: 0; 
         }
+
 
         @media (max-width: 768px) {
             .wrapper {
@@ -270,9 +270,9 @@
                 <text x="157" y="205">-R/2</text>
             </svg>
         </div>
-    </div>
 
-    <div id="r-notification" class="notification hidden">Пожалуйста, выберите значение R</div>
+        <div id="r-notification" class="notification hidden">Пожалуйста, выберите значение R</div>
+    </div>
 
     <jsp:include page="result.jsp" />
 </body>
