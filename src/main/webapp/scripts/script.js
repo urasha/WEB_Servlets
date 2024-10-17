@@ -79,6 +79,7 @@ function handleImageClicking(event) {
     const r = getValidatedR();
 
     if (r == null) {
+        showNotification("Пожалуйста, выберите значение R");
         return;
     }
 
@@ -97,6 +98,18 @@ function handleImageClicking(event) {
     };
 
     sendRequestAndHandleResponse(scaledX, scaledY, r, pointData);
+}
+
+function showNotification(message) {
+    const notification = document.getElementById('r-notification');
+    notification.textContent = message;
+    notification.classList.remove('hidden');
+    notification.classList.add('visible');
+
+    setTimeout(() => {
+        notification.classList.remove('visible');
+        notification.classList.add('hidden');
+    }, 3000);
 }
 
 function addDataRow(x, y, r, hit) {

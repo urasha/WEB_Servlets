@@ -129,6 +129,54 @@
             stroke: black;
         }
 
+        svg rect:hover {
+            fill: rgba(39, 147, 236, 1); 
+            cursor: pointer; 
+            filter: brightness(1.2); 
+        }
+
+        svg path:hover {
+            fill: rgba(39, 147, 236, 1);
+            cursor: pointer;
+            filter: brightness(1.2);
+        }
+
+        svg polygon:hover {
+            fill: rgba(39, 147, 236, 1);
+            cursor: pointer;
+            filter: brightness(1.2);
+        }
+
+        svg text {
+            user-select: none; 
+            cursor: default;  
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px; 
+            left: 15%;
+            transform: translateX(-50%);
+            background-color: #f44336; 
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            opacity: 0;
+            transition: opacity 0.5s ease; 
+            z-index: 1000;
+        }
+
+        .notification.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         @media (max-width: 768px) {
             .wrapper {
                 display: inline;
@@ -140,13 +188,13 @@
 <body>
     <div class="wrapper">
         <header>
-            Нестеров Владислав Алексеевич P3210 488123
+            Нестеров Владислав Алексеевич P3210 765432
         </header>
 
         <div class="x-input">
             <fieldset>
                 <legend class="highlighted">Введите X:</legend>
-                <input type="text" placeholder="[-5; 5]" id="x-value" name="x-value">
+                <input type="text" placeholder="[-5; 5]" id="x-value" name="x-value" oninput="getValidatedX()">
 
                 <span id="x-error" class="error"></span>
             </fieldset>
@@ -223,6 +271,8 @@
             </svg>
         </div>
     </div>
+
+    <div id="r-notification" class="notification hidden">Пожалуйста, выберите значение R</div>
 
     <jsp:include page="result.jsp" />
 </body>
