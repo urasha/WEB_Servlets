@@ -181,6 +181,10 @@ function drawPointOnSvg(svg, x, y) {
     svg.appendChild(point);
 }
 
+if (typeof disableLogs !== 'undefined' && disableLogs === 'true') {
+    console.log = function () { };
+}
+
 document.querySelector("#submit-button")
     .addEventListener("click", (event) => validateInput(event));
 

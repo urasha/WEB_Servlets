@@ -277,6 +277,10 @@
     <jsp:include page="result.jsp" />
 </body>
 
+<script>
+  var disableLogs = "<%= System.getenv("DISABLE_LOGS") %>";
+</script>
+
 <script src="scripts/script.js"></script>
 
 </html>

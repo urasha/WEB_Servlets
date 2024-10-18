@@ -6,8 +6,6 @@ import models.Point;
 
 public class PointHitChecker {
 
-    private static final Logger logger = Logger.getLogger(PointHitChecker.class.getName());
-
     public static boolean checkHit(Point point) {
         double x = point.getX();
         double y = point.getY();
@@ -32,10 +30,6 @@ public class PointHitChecker {
         boolean withinXBounds = (0 <= x) && (x <= r); 
         boolean withinYBounds = (y >= -r / 2) && (y <= 0); 
         boolean aboveHypotenuse = (y >= 0.5 * x - r / 2); 
-
-        logger.info(String.valueOf(withinXBounds));
-        logger.info(String.valueOf(withinYBounds));
-        logger.info(String.valueOf(aboveHypotenuse));
 
         return withinXBounds && withinYBounds && aboveHypotenuse;
     }

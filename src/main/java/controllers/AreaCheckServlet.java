@@ -41,9 +41,9 @@ public class AreaCheckServlet extends HttpServlet {
             return;
         }
 
-        point.setHit(PointHitChecker.checkHit(point));
+        logger.info("ОБрабатываемая точка: " + point.toString());
 
-        logger.info(point.toString());
+        point.setHit(PointHitChecker.checkHit(point));
 
         ServletContext context = getServletContext();
         List<Point> allPoints = (List<Point>) context.getAttribute("allPoints");
