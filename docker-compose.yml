@@ -1,26 +1,12 @@
 version: '3.8'
 
 services:
-  maven:
-    image: maven:3.8.5-openjdk-11
-    container_name: maven-builder
-    working_dir: /app
-    volumes:
-      - .:/app 
-    command: mvn clean package
-
   wildfly:
-    image: quay.io/wildfly/wildfly:latest-jdk17
+    build: .
     container_name: wildfly-container
     ports:
       - "8080:8080"   
       - "9990:9990"
-    volumes:
-      - ./target/web2.war:/opt/jboss/wildfly/standalone/deployments/web2.war
     environment:
       - JAVA_OPTS=-Xms64m -Xmx512m
       - DISABLE_LOGS=true
-    command: ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
-    depends_on:
-      - maven
-    entrypoint: /bin/bash -c "while [ ! -f /opt/jboss/wildfly/standalone/deployments/web2.war ]; do sleep 1; done && /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0"

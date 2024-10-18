@@ -9,13 +9,13 @@ RUN mvn clean package
 
 FROM quay.io/wildfly/wildfly:latest-jdk17
 
-ENV JBOSS_HOME=/opt/wildfly
+ENV JBOSS_HOME=/opt/jboss/wildfly
 ENV PATH="${JBOSS_HOME}/bin:${PATH}"
+ENV WILDFLY_USER=admin
+ENV WILDFLY_PASSWORD=Admin@123
 
-COPY ./target/web2.war ${JBOSS_HOME}/standalone/deployments/
+COPY --from=build /app/target/web2.war ${JBOSS_HOME}/standalone/deployments/
 
-RUN ${JBOSS_HOME}/bin/add-user.sh admin Admin@123 --silent
+RUN chmod +x ${JBOSS_HOME}/bin/add-user.sh
 
-EXPOSE 8080 9990
-
-CMD ["standalone.sh", "-b", "0.0.0.0"]
+CMD ["/bin/bash", "-c", "${JBOSS_HOME}/bin/add-user.sh $WILDFLY_USER $WILDFLY_PASSWORD --silent && ${JBOSS_HOME}/bin/standalone.sh -b 0.0.0.0"]
