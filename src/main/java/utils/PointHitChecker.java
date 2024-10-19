@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.logging.Logger;
-
 import models.Point;
 
 public class PointHitChecker {
