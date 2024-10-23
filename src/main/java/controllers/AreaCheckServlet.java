@@ -41,7 +41,7 @@ public class AreaCheckServlet extends HttpServlet {
             return;
         }
 
-        logger.info("ОБрабатываемая точка: " + point.toString());
+        logger.info("Обрабатываемая точка: " + point.toString());
 
         point.setHit(PointHitChecker.checkHit(point));
 
@@ -85,11 +85,11 @@ public class AreaCheckServlet extends HttpServlet {
             return false;
         }
 
-        if (point.getX() < -5 || point.getX() > 5) {
+        if (point.getX() < -point.getR() || point.getX() > point.getR()) {
             return false;
         }
 
-        if (point.getY() < -2 || point.getY() > 2) {
+        if (point.getY() < -point.getR() || point.getY() > point.getR()) {
             return false;
         }
 

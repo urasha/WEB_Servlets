@@ -9,4 +9,4 @@ services:
       - "9990:9990"
     environment:
       - JAVA_OPTS=-Xms64m -Xmx512m
-      - DISABLE_LOGS=true
+      - DISABLE_LOGS=false
