@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Point" %>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -121,6 +123,7 @@
         }
 
         #submit-button:hover {
+            cursor: pointer;
             background-color: rgba(241, 177, 186, 0.89);
         }
 
@@ -268,9 +271,23 @@
                 <text x=190 y="140">R/2</text>
                 <text x="157" y="105">R/2</text>
                 <text x="157" y="205">-R/2</text>
+
+    <%
+    List<Point> points = (List<Point>) request.getServletContext().getAttribute("allPoints");
+    if (points != null) {
+        for (Point point : points) {
+            double r = point.getR(); 
+            int svgX = (int) ((point.getX() / (r * 1.5)) * (300 / 2) + 300 / 2);
+            int svgY = (int) (300 / 2 - (point.getY() / (r * 1.5)) * (300 / 2));
+    %>
+            <circle cx="<%= svgX %>" cy="<%= svgY %>" r="3" fill="red" />
+<%
+        }
+    }
+%>
+
             </svg>
         </div>
-
         <div id="r-notification" class="notification hidden">Пожалуйста, выберите значение R</div>
     </div>
 
