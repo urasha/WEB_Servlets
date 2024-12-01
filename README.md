@@ -13,4 +13,5 @@ and go to [http://localhost:8080](http://localhost:8080) when WildFly starts
 
 ### Stack
 - Java Servlets API + JSP
+- Maven
 - WildFly + Docker
