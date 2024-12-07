@@ -6,7 +6,7 @@ git clone git@github.com:urasha/WEB_Servlets.git
 cd WEB_Servlets
 docker compose up --build
 ```
-and go to [http://localhost:8080](http://localhost:8080/web2/) when WildFly starts
+and go to [http://localhost:8080/web2/](http://localhost:8080/web2/) when WildFly starts
 
 ### Stack
 - Java Servlets API + JSP
